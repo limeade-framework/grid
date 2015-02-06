@@ -1,0 +1,172 @@
+@import "config";
+@import "mixins";
+
+/**
+* @Variables
+**/
+@debug-color-l: yellow;
+@debug-color-m: green;
+@debug-color-s: red;
+
+.grid-calc(@columnNumber, @totalColumns) {
+  return: 100%*(@columnNumber/@totalColumns);
+}
+
+/**
+* @class row
+* @description Container class for the grid; adds padding and a max-width.
+*/
+.row,
+.wrapper {
+
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+
+  &.row-small {
+    max-width: @screen-small;
+  }
+  &.row-medium {
+    max-width: @screen-medium;
+  }
+  &.row-large {
+    max-width: @screen-large;
+  }
+  &.row-full-width {
+    max-width: 100%;
+  }
+
+}
+
+/**
+* @class col
+* @description A column of the grid.
+*/
+.col {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  //padding: 0 1rem;
+  float: left;
+  .box-sizing();
+  .clearfix();
+  outline: solid @debug-border black;
+}
+[class*='col'] +
+[class*='col']:last-child {
+  float: right;
+}
+
+/**
+* @function grid-small
+* @description Generate classes for each of the columns of the small grid.
+* @param {number} n The number of columns to generate
+* @param {number} i
+*/
+.grid-small(@n,@i:1) when (@i =< @n) {
+  .col-s-@{i} {
+    width: (@i * 100% / @n);
+    //outline: solid @debug-border red;
+    box-shadow:inset 0px 0px 0px @debug-border @debug-color-s;
+    float:left;
+  }
+  .col-push-s-@{i} {
+    margin-left: (@i * 100% / @n);
+  }
+  .col-pull-s-@{i} {
+    margin-right: (@i * 100% / @n);
+  }
+  .grid-small(@n, (@i + 1));
+}
+
+/**
+* @function grid-medium
+* @description Generate classes for each of the columns of the large grid.
+* @param {number} n The number of columns to generate
+* @param {number} i
+*/
+.grid-medium(@n,@i:1) when (@i =< @n) {
+  .col-m-@{i} {
+    width: (@i * 100% / @n);
+    //outline: solid @debug-border green;
+    box-shadow:inset 0px 0px 0px @debug-border @debug-color-m;
+    float:left;
+  }
+  .col-push-m-@{i} {
+    margin-left: (@i * 100% / @n);
+  }
+  .col-pull-m-@{i} {
+    margin-right: (@i * 100% / @n);
+  }
+  .grid-medium(@n, (@i + 1));
+}
+
+/**
+* @function grid-large
+* @description Generate classes for each of the columns of the large grid.
+* @param {number} n The number of columns to generate
+* @param {number} i
+*/
+.grid-large(@n,@i:1) when (@i =< @n) {
+  .col-l-@{i} {
+    width: (@i * 100% / @n);
+    //outline: solid @debug-border blue;
+    box-shadow:inset 0px 0px 0px @debug-border @debug-color-l;
+    float:left;
+  }
+  .col-push-l-@{i} {
+    margin-left: (@i * 100% / @n);
+  }
+  .col-pull-l-@{i} {
+    margin-right: (@i * 100% / @n);
+  }
+  .grid-large(@n, (@i + 1));
+}
+
+@media only screen and (min-width: 0) and (max-width: @screen-small) {
+  .grid-small(12);
+  .hide-on-small {
+    display: none @important;
+  }
+  .show-on-small {
+    display: block;
+  }
+}
+@media only screen and (min-width: @screen-small) and (max-width: @screen-medium) {
+  .grid-small(12);
+  .hide-on-small {
+    display: none @important;
+  }
+  .show-on-small {
+    display: block;
+  }
+}
+@media only screen and (min-width: @screen-medium) and (max-width: @screen-large) {
+  .grid-medium(12);
+  .hide-on-medium {
+    display: none @important;
+  }
+  .show-on-medium {
+    display: block;
+  }
+}
+@media only screen and (min-width: @screen-large) {
+  .grid-large(12);
+  .hide-on-large {
+    display: none @important;
+  }
+  .show-on-large {
+    display: block;
+  }
+}

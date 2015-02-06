@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+  head
+    title Limeade Framework Grid
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="css/styles.css")
+    link(rel="stylesheet", href="css/grid.css")
+
+  body
+    .row
+      .col.col-l-4
+        h1 SiteName
+      
+      .col.col-l-8
+        ul.inline-list
+          li: a.fi-mail(href="") Newsletter
+          li: a.fi-rss(href="") RSS
+          li
+          li: form.row.collapse
+            .col.col-l-4: label Recgsetv
+            .col.col-l-4: input(type="text")
+            .col.col-l-4: a.button.posfix(href="") Go
